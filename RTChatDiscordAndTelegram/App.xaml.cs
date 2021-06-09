@@ -37,13 +37,43 @@ namespace RTChatDiscordAndTelegram
             {
                 services.AddSingleton<CreateViewModel<HomeViewModel>>(service =>
                 {
-                    return () => new HomeViewModel();
+                    return () => new HomeViewModel(
+                        service.GetRequiredService<IViewForwarding>(),
+                        service.GetRequiredService<IViewModelFactory>());
+                });
+                services.AddSingleton<CreateViewModel<LoginViewModel>>(service =>
+                {
+                    return () => new LoginViewModel(
+                        service.GetRequiredService<IViewForwarding>(),
+                        service.GetRequiredService<IViewModelFactory>());
+                });
+                services.AddSingleton<CreateViewModel<DiscordViewModel>>(service =>
+                {
+                    return () => new DiscordViewModel(
+                        service.GetRequiredService<IViewForwarding>(),
+                        service.GetRequiredService<IViewModelFactory>());
+                });
+                services.AddSingleton<CreateViewModel<TelegramViewModel>>(service =>
+                {
+                    return () => new TelegramViewModel(
+                        service.GetRequiredService<IViewForwarding>(),
+                        service.GetRequiredService<IViewModelFactory>());
+                });
+                services.AddSingleton<CreateViewModel<SharedViewModel>>(service =>
+                {
+                    return () => new SharedViewModel(
+                        service.GetRequiredService<IViewForwarding>(),
+                        service.GetRequiredService<IViewModelFactory>());
                 });
                 services.AddSingleton<IViewModelFactory, ViewModelFactory>(c =>
                 {
                     ViewModelsContainer interfaceContainer = new ViewModelsContainer()
                     {
-                        CreateHomeVM = c.GetRequiredService<CreateViewModel<HomeViewModel>>()
+                        CreateHomeVM = c.GetRequiredService<CreateViewModel<HomeViewModel>>(),
+                        CreateDiscordVM = c.GetRequiredService<CreateViewModel<DiscordViewModel>>(),
+                        CreateLoginVM = c.GetRequiredService<CreateViewModel<LoginViewModel>>(),
+                        CreateSharedVM = c.GetRequiredService<CreateViewModel<SharedViewModel>>(),
+                        CreateTelegramVM = c.GetRequiredService<CreateViewModel<TelegramViewModel>>()
                     };
 
                     return new ViewModelFactory(interfaceContainer);

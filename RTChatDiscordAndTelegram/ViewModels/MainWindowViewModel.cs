@@ -21,7 +21,7 @@ namespace RTChatDiscordAndTelegram.ViewModels
             _viewModelFactory = viewModelFactory;
             _forwarding.StateChanged += Forwarding;
             UpdateViewModel = new UpdateViewModelCommand(viewModelFactory, forwarding);
-            UpdateViewModel.Execute(ViewName.HomeView);
+            UpdateViewModel.Execute(ViewName.LoginView);
         }
         public void Forwarding() =>
             OnPropertyChanged(nameof(ActiveViewModel));
