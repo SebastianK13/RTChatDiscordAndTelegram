@@ -4,10 +4,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTChatDiscordAndTelegram", "RTChatDiscordAndTelegram\RTChatDiscordAndTelegram.csproj", "{A4B9D47B-F392-421D-A362-40EE58E903B8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7D0DAD88-02C1-48D5-8783-95413250F4A7} = {7D0DAD88-02C1-48D5-8783-95413250F4A7}
+		{8B4078CB-57BF-4879-B4B7-C95CE9242D5E} = {8B4078CB-57BF-4879-B4B7-C95CE9242D5E}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTChatDiscordAndTelegram.EFCore", "RTChatDiscordAndTelegram.EFCore\RTChatDiscordAndTelegram.EFCore.csproj", "{8B4078CB-57BF-4879-B4B7-C95CE9242D5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTChatDiscordAndTelegram.EFCore", "RTChatDiscordAndTelegram.EFCore\RTChatDiscordAndTelegram.EFCore.csproj", "{8B4078CB-57BF-4879-B4B7-C95CE9242D5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTChatDiscordAndTelegram.Data", "RTChatDiscordAndTelegram.Data\RTChatDiscordAndTelegram.Data.csproj", "{7D0DAD88-02C1-48D5-8783-95413250F4A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTChatDiscordAndTelegram.Data", "RTChatDiscordAndTelegram.Data\RTChatDiscordAndTelegram.Data.csproj", "{7D0DAD88-02C1-48D5-8783-95413250F4A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

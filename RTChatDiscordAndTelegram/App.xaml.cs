@@ -1,6 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RTChatDiscordAndTelegram.Data.Models.Additional;
+using RTChatDiscordAndTelegram.Data.Services;
+using RTChatDiscordAndTelegram.EFCore.Context;
+using RTChatDiscordAndTelegram.EFCore.Services;
 using RTChatDiscordAndTelegram.Models;
 using RTChatDiscordAndTelegram.Session.Factory;
 using RTChatDiscordAndTelegram.Session.Navigation;
@@ -35,6 +40,7 @@ namespace RTChatDiscordAndTelegram
             })
             .ConfigureServices((context, services) =>
             {
+                services.AddSingleton<IRTCIdentityService, RTCIdentityDataService>();
                 services.AddSingleton<CreateViewModel<HomeViewModel>>(service =>
                 {
                     return () => new HomeViewModel(
@@ -43,9 +49,14 @@ namespace RTChatDiscordAndTelegram
                 });
                 services.AddSingleton<CreateViewModel<LoginViewModel>>(service =>
                 {
+                    ContextsContainer contexts = new ContextsContainer
+                    {
+                        Identity = service.GetRequiredService<IRTCIdentityService>()
+                    };
                     return () => new LoginViewModel(
                         service.GetRequiredService<IViewForwarding>(),
-                        service.GetRequiredService<IViewModelFactory>());
+                        service.GetRequiredService<IViewModelFactory>(),
+                        contexts);
                 });
                 services.AddSingleton<CreateViewModel<DiscordViewModel>>(service =>
                 {

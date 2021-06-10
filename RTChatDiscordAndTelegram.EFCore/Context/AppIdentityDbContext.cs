@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using RTChatDiscordAndTelegram.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,13 @@ namespace RTChatDiscordAndTelegram.EFCore.Context
         public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options)
             :base(options) { }
 
-        DbSet<Identity> Identities { get; set; }
+        public DbSet<Identity> Identities { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            IConfigurationBuilder configBuilder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
+            IConfiguration configuration = configBuilder.Build();
+            optionsBuilder.UseSqlServer(configuration["Data:RTCIdentity:ConnectionString"]);
+        }
     }
 }
