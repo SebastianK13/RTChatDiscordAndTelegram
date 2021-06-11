@@ -14,6 +14,15 @@ namespace RTChatDiscordAndTelegram.EFCore.Context
             :base(options) { }
 
         public DbSet<Identity> Identities { get; set; }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Identity>(e => 
+            {
+                e.HasIndex(m => m.Email).IsUnique();
+                e.HasIndex(u => u.Username).IsUnique();
+            });
+
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

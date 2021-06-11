@@ -7,6 +7,8 @@ using RTChatDiscordAndTelegram.Data.Services;
 using RTChatDiscordAndTelegram.EFCore.Context;
 using RTChatDiscordAndTelegram.EFCore.Services;
 using RTChatDiscordAndTelegram.Models;
+using RTChatDiscordAndTelegram.Services.Containers;
+using RTChatDiscordAndTelegram.Session.Authorization;
 using RTChatDiscordAndTelegram.Session.Factory;
 using RTChatDiscordAndTelegram.Session.Navigation;
 using RTChatDiscordAndTelegram.ViewModels;
@@ -40,7 +42,27 @@ namespace RTChatDiscordAndTelegram
             })
             .ConfigureServices((context, services) =>
             {
+                services.AddSingleton<InterfacesContainer>(s =>
+                new InterfacesContainer()
+                    {
+                        Authorization = s.GetRequiredService<IAuthorization>(),
+                        LoggedUser = s.GetRequiredService<ILoggedUser>(),
+                        Forwarding = s.GetRequiredService<IViewForwarding>(),
+                        ViewModelFactory = s.GetRequiredService<IViewModelFactory>()
+                    });
+
+                services.AddSingleton<ViewModelsContainer>(c =>   
+                new ViewModelsContainer()
+                   {
+                       CreateHomeVM = c.GetRequiredService<CreateViewModel<HomeViewModel>>(),
+                       CreateDiscordVM = c.GetRequiredService<CreateViewModel<DiscordViewModel>>(),
+                       CreateLoginVM = c.GetRequiredService<CreateViewModel<LoginViewModel>>(),
+                       CreateSharedVM = c.GetRequiredService<CreateViewModel<SharedViewModel>>(),
+                       CreateTelegramVM = c.GetRequiredService<CreateViewModel<TelegramViewModel>>()
+                   });
                 services.AddSingleton<IRTCIdentityService, RTCIdentityDataService>();
+                services.AddSingleton<IAuthorization, Authorization>();
+                services.AddSingleton<ILoggedUser, LoggedUser>();
                 services.AddSingleton<CreateViewModel<HomeViewModel>>(service =>
                 {
                     return () => new HomeViewModel(
@@ -53,9 +75,8 @@ namespace RTChatDiscordAndTelegram
                     {
                         Identity = service.GetRequiredService<IRTCIdentityService>()
                     };
-                    return () => new LoginViewModel(
-                        service.GetRequiredService<IViewForwarding>(),
-                        service.GetRequiredService<IViewModelFactory>(),
+
+                    return () => new LoginViewModel(service.GetRequiredService<InterfacesContainer>(),
                         contexts);
                 });
                 services.AddSingleton<CreateViewModel<DiscordViewModel>>(service =>
@@ -76,22 +97,12 @@ namespace RTChatDiscordAndTelegram
                         service.GetRequiredService<IViewForwarding>(),
                         service.GetRequiredService<IViewModelFactory>());
                 });
-                services.AddSingleton<IViewModelFactory, ViewModelFactory>(c =>
-                {
-                    ViewModelsContainer interfaceContainer = new ViewModelsContainer()
-                    {
-                        CreateHomeVM = c.GetRequiredService<CreateViewModel<HomeViewModel>>(),
-                        CreateDiscordVM = c.GetRequiredService<CreateViewModel<DiscordViewModel>>(),
-                        CreateLoginVM = c.GetRequiredService<CreateViewModel<LoginViewModel>>(),
-                        CreateSharedVM = c.GetRequiredService<CreateViewModel<SharedViewModel>>(),
-                        CreateTelegramVM = c.GetRequiredService<CreateViewModel<TelegramViewModel>>()
-                    };
-
-                    return new ViewModelFactory(interfaceContainer);
-                }
-                );
+                services.AddSingleton<IViewModelFactory, ViewModelFactory>(c => 
+                    new ViewModelFactory(c.GetRequiredService<ViewModelsContainer>()));
                 services.AddSingleton<IViewForwarding, ViewForwarding>();
-                services.AddScoped<MainWindowViewModel>();
+                services.AddScoped<MainWindowViewModel>(service =>
+                    new MainWindowViewModel(service.GetRequiredService<InterfacesContainer>()));
+
                 services.AddScoped<MainWindow>(s => new MainWindow(s.GetRequiredService<MainWindowViewModel>()));
             });
         protected override void OnStartup(StartupEventArgs e)

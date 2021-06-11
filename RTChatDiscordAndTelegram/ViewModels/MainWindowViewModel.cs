@@ -1,4 +1,6 @@
 ﻿using RTChatDiscordAndTelegram.Command;
+using RTChatDiscordAndTelegram.Services.Containers;
+using RTChatDiscordAndTelegram.Session.Authorization;
 using RTChatDiscordAndTelegram.Session.Factory;
 using RTChatDiscordAndTelegram.Session.Navigation;
 using System;
@@ -12,18 +14,43 @@ namespace RTChatDiscordAndTelegram.ViewModels
     {
         private readonly IViewForwarding _forwarding;
         private readonly IViewModelFactory _viewModelFactory;
+        private readonly IAuthorization _authorization;
+        private bool mainWindowVisibility;
+
         public ViewModelBase ActiveViewModel => 
             _forwarding.ActiveViewModel;
+        public ViewModelBase ActiveViewLoginWindow =>
+            _forwarding.ActiveViewLW;
         public ICommand UpdateViewModel { get; }
-        public MainWindowViewModel(IViewForwarding forwarding, IViewModelFactory viewModelFactory)
+        public ICommand UpdateLoginWindow { get; }
+        public bool MainWindowVisibility 
         {
-            _forwarding = forwarding;
-            _viewModelFactory = viewModelFactory;
+            get => mainWindowVisibility;
+            set
+            {
+                mainWindowVisibility = value;
+                OnPropertyChanged("MainWindowVisibility");
+            }
+        }
+        public MainWindowViewModel(InterfacesContainer container)
+        {
+            MainWindowVisibility = false;
+            _authorization = container.Authorization;
+            _forwarding = container.Forwarding;
+            _viewModelFactory = container.ViewModelFactory;
             _forwarding.StateChanged += Forwarding;
-            UpdateViewModel = new UpdateViewModelCommand(viewModelFactory, forwarding);
-            UpdateViewModel.Execute(ViewName.LoginView);
+            _forwarding.StateChangedLW += ForwardViewForLW;
+            UpdateViewModel = new UpdateViewModelCommand(_viewModelFactory, _forwarding);
+            UpdateLoginWindow = new UpdateViewForLWCommand(_viewModelFactory, _forwarding);
+            UpdateLoginWindow.Execute(ViewName.LoginView);
         }
         public void Forwarding() =>
             OnPropertyChanged(nameof(ActiveViewModel));
+        public void ForwardViewForLW() =>
+            OnPropertyChanged(nameof(ActiveViewLoginWindow));
+        public void InitializeView() =>
+            UpdateViewModel.Execute(ViewName.LoginView);
+        public bool IsLogged() =>
+            _authorization.IsLogged;
     }
 }

@@ -18,5 +18,7 @@ namespace RTChatDiscordAndTelegram.Session.Navigation
     {
         ViewModelBase ActiveViewModel { get; set; }
         event Action StateChanged;
+        ViewModelBase ActiveViewLW { get; set; }
+        event Action StateChangedLW;
     }
 }

@@ -8,6 +8,7 @@ namespace RTChatDiscordAndTelegram.Session.Navigation
     public class ViewForwarding : IViewForwarding
     {
         private ViewModelBase _activeViewModel;
+        private ViewModelBase _activeViewLW;
 
         public ViewModelBase ActiveViewModel 
         {
@@ -19,6 +20,17 @@ namespace RTChatDiscordAndTelegram.Session.Navigation
             } 
         }
 
+        public ViewModelBase ActiveViewLW
+        {
+            get => _activeViewLW;
+            set
+            {
+                _activeViewLW = value;
+                StateChangedLW?.Invoke();
+            }
+        }
+
         public event Action StateChanged;
+        public event Action StateChangedLW;
     }
 }

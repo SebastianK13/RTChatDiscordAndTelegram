@@ -29,10 +29,15 @@ namespace RTChatDiscordAndTelegram.EFCore.Services
             await _context.SaveChangesAsync();
         }
 
-        public string GetHashPswd(string username) =>
-            _context.Identities
+        private async Task<string> GetHashPswd(string username) =>
+            await _context.Identities
                 .Where(u => u.Username == username)
                 .Select(p => p.PasswordHash)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
+
+        public async Task<Identity> GetUserByName(string username) =>
+            await _context.Identities
+            .Where(u => u.Username == username)
+            .FirstOrDefaultAsync();
     }
 }

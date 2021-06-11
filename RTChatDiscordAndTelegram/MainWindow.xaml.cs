@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RTChatDiscordAndTelegram.ViewModels;
+using RTChatDiscordAndTelegram.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,12 +22,33 @@ namespace RTChatDiscordAndTelegram
     /// </summary>
     public partial class MainWindow : Window
     {
-        object temp;
+        private MainWindowViewModel mWVM;
+        private readonly LoginWindow loginWindow;
+        private bool IsLogged;
         public MainWindow(object parameter)
         {
             InitializeComponent();
             DataContext = parameter;
-            temp = parameter;
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            loginWindow = new LoginWindow(this);
+            loginWindow.DataContext = parameter;
+            loginWindow.Show();
+            this.Hide();
+        }
+        private void Grid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+            if (mWVM.IsLogged())
+            {
+                loginWindow.Close();
+                this.Show();
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            mWVM = (MainWindowViewModel)this.DataContext;
+            
         }
     }
 }

@@ -1,22 +1,44 @@
-﻿using RTChatDiscordAndTelegram.Data.Models.Additional;
-using RTChatDiscordAndTelegram.Services.Crypto;
+﻿using RTChatDiscordAndTelegram.Command;
+using RTChatDiscordAndTelegram.Data.Models.Additional;
+using RTChatDiscordAndTelegram.Services.Containers;
 using RTChatDiscordAndTelegram.Session.Factory;
 using RTChatDiscordAndTelegram.Session.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
 
 namespace RTChatDiscordAndTelegram.ViewModels
 {
     public class LoginViewModel: ViewModelBase
     {
-        private readonly IViewForwarding _forwarding;
-        private readonly IViewModelFactory _viewModelFactory;
-        public LoginViewModel(IViewForwarding forwarding, IViewModelFactory viewModelFactory, ContextsContainer contexts)
+        private string _username;
+        private bool _errVisibility;
+
+        public string Username 
         {
-            _forwarding = forwarding;
-            _viewModelFactory = viewModelFactory;
-            PasswordService passwordService = new PasswordService();
+            get => _username;
+            set
+            {
+                _username = value;
+                OnPropertyChanged("Username");
+            }
+        }
+        public bool ErrorVisibility
+        {
+            get => _errVisibility;
+            set
+            {
+                _errVisibility = value;
+                OnPropertyChanged("ErrorVisibility");
+            }
+        }
+        public ICommand LoginCommand { get; } 
+        public ICommand UpdateViewModel { get; }
+        public LoginViewModel(InterfacesContainer container, ContextsContainer contexts)
+        {
+            LoginCommand = new LoginCommand(contexts.Identity, this, container.Authorization);
+            UpdateViewModel = new UpdateViewModelCommand(container.ViewModelFactory, container.Forwarding);
         }
     }
 }
