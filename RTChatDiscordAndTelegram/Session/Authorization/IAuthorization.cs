@@ -11,5 +11,6 @@ namespace RTChatDiscordAndTelegram.Session.Authorization
         bool IsLogged { get; }
 
         Task<bool> Login(string username, string password);
+        Task<bool> SignUp(string username, string password);
     }
 }

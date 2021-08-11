@@ -9,6 +9,7 @@ namespace RTChatDiscordAndTelegram.Session.Navigation
     {
         private ViewModelBase _activeViewModel;
         private ViewModelBase _activeViewLW;
+        private bool _isLoginActive;
 
         public ViewModelBase ActiveViewModel 
         {
@@ -30,7 +31,18 @@ namespace RTChatDiscordAndTelegram.Session.Navigation
             }
         }
 
+        public bool IsLoginActive 
+        {
+            get => _isLoginActive;
+            set 
+            {
+                _isLoginActive = value;
+                StateChangedLogin?.Invoke();
+            }
+        }
+
         public event Action StateChanged;
         public event Action StateChangedLW;
+        public event Action StateChangedLogin;
     }
 }

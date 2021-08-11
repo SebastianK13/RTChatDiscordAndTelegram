@@ -20,5 +20,7 @@ namespace RTChatDiscordAndTelegram.Session.Navigation
         event Action StateChanged;
         ViewModelBase ActiveViewLW { get; set; }
         event Action StateChangedLW;
+        bool IsLoginActive { get; set; }
+        event Action StateChangedLogin;
     }
 }

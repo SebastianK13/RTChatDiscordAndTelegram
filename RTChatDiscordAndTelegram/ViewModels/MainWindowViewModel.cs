@@ -16,6 +16,8 @@ namespace RTChatDiscordAndTelegram.ViewModels
         private readonly IViewModelFactory _viewModelFactory;
         private readonly IAuthorization _authorization;
         private bool mainWindowVisibility;
+        public event EventHandler OnCloseDemand;
+        private bool beforeLogin = true;
 
         public ViewModelBase ActiveViewModel => 
             _forwarding.ActiveViewModel;
@@ -40,6 +42,7 @@ namespace RTChatDiscordAndTelegram.ViewModels
             _viewModelFactory = container.ViewModelFactory;
             _forwarding.StateChanged += Forwarding;
             _forwarding.StateChangedLW += ForwardViewForLW;
+            _forwarding.StateChangedLogin += IsUserLogged;
             UpdateViewModel = new UpdateViewModelCommand(_viewModelFactory, _forwarding);
             UpdateLoginWindow = new UpdateViewForLWCommand(_viewModelFactory, _forwarding);
             UpdateLoginWindow.Execute(ViewName.LoginView);
@@ -48,9 +51,11 @@ namespace RTChatDiscordAndTelegram.ViewModels
             OnPropertyChanged(nameof(ActiveViewModel));
         public void ForwardViewForLW() =>
             OnPropertyChanged(nameof(ActiveViewLoginWindow));
-        public void InitializeView() =>
-            UpdateViewModel.Execute(ViewName.LoginView);
         public bool IsLogged() =>
             _authorization.IsLogged;
+        public void CloseOnSuccefull() =>
+            OnCloseDemand(this, new EventArgs());
+        public void IsUserLogged() =>
+            CloseOnSuccefull();
     }
 }

@@ -33,6 +33,8 @@ namespace RTChatDiscordAndTelegram.Views
             main = (MainWindowViewModel)this.DataContext;
             if (!main.IsLogged())
                 _mainWindow.Close();
+            else
+                _mainWindow.Show();
         }
 
     }

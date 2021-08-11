@@ -100,7 +100,7 @@ namespace RTChatDiscordAndTelegram
                 services.AddSingleton<IViewModelFactory, ViewModelFactory>(c => 
                     new ViewModelFactory(c.GetRequiredService<ViewModelsContainer>()));
                 services.AddSingleton<IViewForwarding, ViewForwarding>();
-                services.AddScoped<MainWindowViewModel>(service =>
+                services.AddScoped(service =>
                     new MainWindowViewModel(service.GetRequiredService<InterfacesContainer>()));
 
                 services.AddScoped<MainWindow>(s => new MainWindow(s.GetRequiredService<MainWindowViewModel>()));

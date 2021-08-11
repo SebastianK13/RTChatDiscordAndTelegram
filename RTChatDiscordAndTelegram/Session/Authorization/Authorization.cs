@@ -12,6 +12,7 @@ namespace RTChatDiscordAndTelegram.Session.Authorization
     {
         private readonly IRTCIdentityService _identityService;
         private readonly ILoggedUser _loggedUser;
+        private readonly PasswordService _passwordService;
 
         public string CurrentUsername
         {
@@ -33,6 +34,7 @@ namespace RTChatDiscordAndTelegram.Session.Authorization
         {
             _identityService = identityService;
             _loggedUser = loggedUser;
+            _passwordService = new PasswordService();
         }
         public async Task<bool> Login(string username, string password)
         {
@@ -45,18 +47,34 @@ namespace RTChatDiscordAndTelegram.Session.Authorization
                 {
                     PasswordService passwordService = new PasswordService();
                     var result = passwordService.CompareHashes(user.PasswordHash, password);
-                    if (!result)
-                    {
-                        return false;
-                    }
-                    else
+                    if (result)
                     {
                         _loggedUser.UID = user.Username;
                         _loggedUser.UID = user.Id.ToString();
+                        CurrentUsername = user.Username;
+                        return true;
                     }
                 }
             }
-            return true;
+            return false;
+        }
+
+        public async Task<bool> SignUp(string username, string password)
+        {
+            Identity user = new Identity();
+            if (CurrentUsername is null)
+            {
+                user = await _identityService.GetUserByName(username);
+                    
+                if (user == null) 
+                {
+                    string hash = _passwordService.HashPassword(password);
+                    await _identityService.CreateNewUser(username, hash);
+                    return true;
+                }
+
+            }
+            return false;
         }
     }
 }

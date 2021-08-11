@@ -44,11 +44,11 @@ namespace RTChatDiscordAndTelegram
                 this.Show();
             }
         }
-
+        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             mWVM = (MainWindowViewModel)this.DataContext;
-            
+            mWVM.OnCloseDemand += (w, e) => loginWindow.Close();
         }
     }
 }

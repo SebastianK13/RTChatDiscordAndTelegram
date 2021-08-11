@@ -42,7 +42,7 @@
         </StackPanel>
         <StackPanel Grid.Row="2" Margin="0,10,0,0" Width="300" Visibility="{Binding ErrorVisibility, 
             Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock FontSize="16" Foreground="Red" TextAlignment="Center" Text="Wrong username or password"/>
+            <TextBlock FontSize="16" Foreground="Red" TextAlignment="Center" Text="{Binding ErrorDesc}"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Height="40" Width="280" Orientation="Horizontal">
             <StackPanel.Resources>
@@ -52,7 +52,8 @@
             </StackPanel.Resources>
             <Button Content="Sign in" Width="120" Margin="10,0,0,0" Command="{Binding LoginCommand}" 
                     CommandParameter="{Binding ElementName=Password}"/>
-            <Button Content="Sign up" Width="120" Margin="10,0,0,0"/>
+            <Button Content="Sign up" Width="120" Margin="10,0,0,0" Command="{Binding SignUpCommand}" 
+                    CommandParameter="{Binding ElementName=Password}"/>
         </StackPanel>
     </Grid>
 </UserControl>
