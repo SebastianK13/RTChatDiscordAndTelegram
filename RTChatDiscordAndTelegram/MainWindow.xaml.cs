@@ -24,7 +24,6 @@ namespace RTChatDiscordAndTelegram
     {
         private MainWindowViewModel mWVM;
         private readonly LoginWindow loginWindow;
-        private bool IsLogged;
         public MainWindow(object parameter)
         {
             InitializeComponent();
@@ -33,7 +32,7 @@ namespace RTChatDiscordAndTelegram
             loginWindow = new LoginWindow(this);
             loginWindow.DataContext = parameter;
             loginWindow.Show();
-            this.Hide();
+            //this.Hide();
         }
         private void Grid_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
@@ -49,6 +48,12 @@ namespace RTChatDiscordAndTelegram
         {
             mWVM = (MainWindowViewModel)this.DataContext;
             mWVM.OnCloseDemand += (w, e) => loginWindow.Close();
+            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight-10;
+            MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth-10;
+            //this.Height = this.MaxHeight;
+            //this.Width = this.MaxWidth;
+            //this.Left = 0;
+            //this.Top = 0;
         }
     }
 }

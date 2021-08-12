@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\close\close.png" />
+    <None Remove="Resources\Images\hide\minus.png" />
+    <None Remove="Resources\Images\maximize\maximize.png" />
+    <None Remove="Resources\Images\minimize\minimize.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.7">
       <PrivateAssets>all</PrivateAssets>
@@ -28,5 +35,11 @@
   <ItemGroup>
     <ProjectReference Include="..\RTChatDiscordAndTelegram.Data\RTChatDiscordAndTelegram.Data.csproj" />
     <ProjectReference Include="..\RTChatDiscordAndTelegram.EFCore\RTChatDiscordAndTelegram.EFCore.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\close\close.png" />
+    <Resource Include="Resources\Images\hide\minus.png" />
+    <Resource Include="Resources\Images\maximize\maximize.png" />
+    <Resource Include="Resources\Images\minimize\minimize.png" />
   </ItemGroup>
 </Project>
