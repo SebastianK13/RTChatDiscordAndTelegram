@@ -50,10 +50,10 @@ namespace RTChatDiscordAndTelegram
             mWVM.OnCloseDemand += (w, e) => loginWindow.Close();
             MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight-10;
             MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth-10;
-            //this.Height = this.MaxHeight;
-            //this.Width = this.MaxWidth;
-            //this.Left = 0;
-            //this.Top = 0;
+            this.Height = this.MaxHeight;
+            this.Width = this.MaxWidth;
+            this.Left = 0;
+            this.Top = 0;
         }
     }
 }

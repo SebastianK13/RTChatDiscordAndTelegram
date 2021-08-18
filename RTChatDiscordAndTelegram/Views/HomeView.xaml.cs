@@ -34,17 +34,14 @@ namespace RTChatDiscordAndTelegram.Views
                 if (!_isMaximized)
                 {
                     _isMaximized = true;
-                    _mainWindow.WindowState = WindowState.Maximized;
-                    //_mainWindow.Height = _mainWindow.MaxHeight;
-                    //_mainWindow.Width = _mainWindow.MaxWidth;
+                    CenterWindow();
                 }
                 else
                 {
                     _isMaximized = false;
-                    _mainWindow.WindowState = WindowState.Normal;
-                    //_mainWindow.Height = 450;
-                    //_mainWindow.Width = 800;
-                    //CenterWindow();
+                    _mainWindow.Height = 450;
+                    _mainWindow.Width = 800;
+                    CenterWindow();
                 }
 
             }
@@ -60,7 +57,8 @@ namespace RTChatDiscordAndTelegram.Views
                 double distanceY = Math.Abs(_clickPoint.Y - currentPosition.Y);
                 if (distanceX > 5 || distanceY > 5)
                 {
-                    _mainWindow.WindowState = WindowState.Normal;
+                    _mainWindow.Height = 450;
+                    _mainWindow.Width = 800;
                     _isMaximized = false;
                     _mainWindow.DragMove();
                 }
@@ -68,10 +66,15 @@ namespace RTChatDiscordAndTelegram.Views
         }
         private void CenterWindow()
         {
-            double screenWidth = SystemParameters.PrimaryScreenWidth;
-            double screenHeight = SystemParameters.PrimaryScreenHeight;
-            double windowWidth = _mainWindow.Width;
-            double windowHeight = _mainWindow.Height;
+            double screenWidth = 800;
+            double screenHeight = 450;
+            if (_isMaximized)
+            {
+                screenWidth = SystemParameters.PrimaryScreenWidth;
+                screenHeight = SystemParameters.PrimaryScreenHeight;
+            }
+            _mainWindow.Width = screenWidth;
+            _mainWindow.Height = screenHeight;
             _mainWindow.Left = 0;
             _mainWindow.Top = 0;
         }

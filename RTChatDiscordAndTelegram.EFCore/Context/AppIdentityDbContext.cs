@@ -3,7 +3,10 @@ using Microsoft.Extensions.Configuration;
 using RTChatDiscordAndTelegram.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace RTChatDiscordAndTelegram.EFCore.Context
 {
@@ -28,7 +31,8 @@ namespace RTChatDiscordAndTelegram.EFCore.Context
         {
             IConfigurationBuilder configBuilder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
             IConfiguration configuration = configBuilder.Build();
-            optionsBuilder.UseSqlServer(configuration["Data:RTCIdentity:ConnectionString"]);
+            var directory = (Directory.GetCurrentDirectory()).Split("\\bin");
+            optionsBuilder.UseSqlServer(configuration["Data:RTCIdentity:ConnectionString"].Replace("[DataDirectory]", directory.FirstOrDefault()));
         }
     }
 }
