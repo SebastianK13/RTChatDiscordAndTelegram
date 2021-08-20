@@ -12,6 +12,7 @@ using RTChatDiscordAndTelegram.Session.Authorization;
 using RTChatDiscordAndTelegram.Session.Factory;
 using RTChatDiscordAndTelegram.Session.Navigation;
 using RTChatDiscordAndTelegram.ViewModels;
+using RTChatDiscordAndTelegram.Views;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
