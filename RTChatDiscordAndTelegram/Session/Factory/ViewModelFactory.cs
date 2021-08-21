@@ -20,7 +20,7 @@ namespace RTChatDiscordAndTelegram.Session.Factory
                 case ViewName.HomeView:
                     return _viewModelInstances.CreateHomeVM();
                 case ViewName.DiscordView:
-                    return _viewModelInstances.CreateHomeVM();
+                    return _viewModelInstances.CreateDiscordVM();
                 case ViewName.TelegramView:
                     return _viewModelInstances.CreateTelegramVM();
                 case ViewName.SharedView:

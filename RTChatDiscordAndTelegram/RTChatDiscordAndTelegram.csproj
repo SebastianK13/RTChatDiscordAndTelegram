@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Content\discord.png" />
+    <None Remove="Content\properties.png" />
+    <None Remove="Content\telegram.png" />
     <None Remove="Resources\Images\close\close.png" />
     <None Remove="Resources\Images\hide\minus.png" />
     <None Remove="Resources\Images\maximize\maximize.png" />
@@ -38,6 +41,9 @@
     <ProjectReference Include="..\RTChatDiscordAndTelegram.EFCore\RTChatDiscordAndTelegram.EFCore.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Content\discord.png" />
+    <Resource Include="Content\properties.png" />
+    <Resource Include="Content\telegram.png" />
     <Resource Include="Resources\Images\close\close.png" />
     <Resource Include="Resources\Images\hide\minus.png" />
     <Resource Include="Resources\Images\maximize\maximize.png" />

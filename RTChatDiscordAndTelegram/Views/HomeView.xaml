@@ -8,9 +8,91 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
-        <Style x:Key="borderless" TargetType="Button">
-            <Setter Property="BorderThickness" Value="0"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ControlStyles.xaml"/>
+                <ResourceDictionary Source="HomeViewResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
 
+    <Grid Margin="4,25,4,4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+            <ColumnDefinition Width="*" MinWidth="210"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="#606060" BorderThickness="1" Background="#181818" Grid.Column="0">
+            <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" MaxHeight="70"/>
+                <RowDefinition Height="6*"/>
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0">
+                    <DockPanel VerticalAlignment="Top" Margin="5,5,0,0">
+                        <Image Source="../Content/discord.png" MaxHeight="64" MaxWidth="64"/>
+                        <Label Foreground="#5C6BC0" HorizontalContentAlignment="Center" VerticalAlignment="Center"
+                           FontSize="14" Margin="0,-25,0,0"
+                           HorizontalAlignment="Stretch" BorderThickness="0,0,0,4" BorderBrush="#5C6BC0">Discrod channels</Label>
+                    </DockPanel>
+                </DockPanel>
+                <DockPanel Grid.Row="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="35"/>
+                        </Grid.RowDefinitions>
+                        <DockPanel Grid.Row="0"></DockPanel>
+                        <DockPanel Grid.Row="1">
+                            <Button Style="{StaticResource borderless}" Command="{Binding ChooseManagePanel}" CommandParameter="DiscordView">
+                                <StackPanel Orientation="Horizontal" Margin="0,2.5,0,2.5">
+                                    <Image Source="../Content/properties.png" MaxHeight="25" MaxWidth="25"/>
+                                    <Label Foreground="WhiteSmoke">Manage</Label>
+                                </StackPanel>
+                            </Button>
+                        </DockPanel>
+                    </Grid>
+                </DockPanel>
+        </Grid>
+        </Border>
+        <Border BorderBrush="#606060" BorderThickness="1" Background="#181818" Grid.Column="1" Margin="5,0,0,0">
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" MaxHeight="70"/>
+                    <RowDefinition Height="6*"/>
+                </Grid.RowDefinitions>
+                <DockPanel Grid.Row="0">
+                    <DockPanel VerticalAlignment="Top" Margin="5,5,0,0">
+                        <Image Source="../Content/telegram.png" MaxHeight="64" MaxWidth="64"/>
+                        <Label Foreground="#039BE5" HorizontalContentAlignment="Center" VerticalAlignment="Center"
+                           FontSize="14" Margin="-1,-25,0,0"
+                           HorizontalAlignment="Stretch" BorderThickness="0,0,0,4" BorderBrush="#039BE5">Telegram channels</Label>
+                    </DockPanel>
+                </DockPanel>
+                <DockPanel Grid.Row="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="35"/>
+                        </Grid.RowDefinitions>
+                        <DockPanel Grid.Row="0"></DockPanel>
+                        <DockPanel Grid.Row="1">
+                            <Button Style="{StaticResource borderless}" Command="{Binding ChooseManagePanel}" CommandParameter="TelegramView">
+                                <StackPanel Orientation="Horizontal" Margin="0,2.5,0,2.5">
+                                    <Image Source="../Content/properties.png" MaxHeight="25" MaxWidth="25"/>
+                                    <Label Foreground="WhiteSmoke">Manage</Label>
+                                </StackPanel>
+                            </Button>
+                        </DockPanel>
+                    </Grid>
+                </DockPanel>
+            </Grid>
+        </Border>
+        <DockPanel Grid.Column="2" Margin="5,0,0,0">
+            <Border BorderBrush="#606060" BorderThickness="1" Background="#181818">
+                <ContentPresenter Content="{Binding ManagePanel, UpdateSourceTrigger=PropertyChanged}"/>
+            </Border>
+        </DockPanel>
+        
+    </Grid>
 </UserControl>

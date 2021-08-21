@@ -16,7 +16,7 @@ namespace RTChatDiscordAndTelegram.Views
     /// <summary>
     /// Interaction logic for TelegramView.xaml
     /// </summary>
-    public partial class TelegramView : Page
+    public partial class TelegramView : UserControl
     {
         public TelegramView()
         {

@@ -12,7 +12,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="MainWindowResources.xaml"/>
+                <ResourceDictionary Source="ControlStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
     </Window.Resources>
@@ -22,7 +22,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="2"/>
         </Grid.RowDefinitions>
-        <Grid>
+        <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2"/>
                 <RowDefinition Height="*"/>
@@ -79,9 +79,9 @@
             <DockPanel Grid.Column="0" Background="#212325">
                 <StackPanel Name="borderLeft"/>
             </DockPanel>
-            <StackPanel Grid.Column="1" Background="#212325">
+            <DockPanel Grid.Column="1" Background="#212325">
                 <ContentControl Content="{Binding ActiveViewModel}"/>
-            </StackPanel>
+            </DockPanel>
             <DockPanel Grid.Column="2" Background="#212325">
                 <StackPanel Name="borderRight"/>
             </DockPanel>

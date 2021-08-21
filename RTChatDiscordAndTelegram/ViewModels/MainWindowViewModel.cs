@@ -17,7 +17,6 @@ namespace RTChatDiscordAndTelegram.ViewModels
         private readonly IAuthorization _authorization;
         private bool mainWindowVisibility;
         public event EventHandler OnCloseDemand;
-        private bool beforeLogin = true;
 
         public ViewModelBase ActiveViewModel => 
             _forwarding.ActiveViewModel;

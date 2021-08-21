@@ -68,10 +68,9 @@ namespace RTChatDiscordAndTelegram.Views
             mWVM.OnCloseDemand += (w, e) => loginWindow.Close();
             MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight - 10;
             MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth - 10;
-            this.Height = this.MaxHeight;
-            this.Width = this.MaxWidth;
-            this.Left = 0;
-            this.Top = 0;
+            _isMaximized = true;
+            this.WindowState = WindowState.Normal;
+            CenterWindow();
         }
 
         private void Window_StateChanged(object sender, EventArgs e)
@@ -152,7 +151,7 @@ namespace RTChatDiscordAndTelegram.Views
             if (_isMaximized)
             {
                 screenWidth = currentScreen.Bounds.Width;
-                screenHeight = currentScreen.Bounds.Height;
+                screenHeight = currentScreen.Bounds.Height-40;
                 this.Left = currentScreen.Bounds.Left;
                 this.Top = currentScreen.Bounds.Top;
                 this.ResizeMode = ResizeMode.NoResize;
