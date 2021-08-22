@@ -6,7 +6,26 @@
              xmlns:local="clr-namespace:RTChatDiscordAndTelegram.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock>discord</TextBlock>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ControlStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Foreground="#5C6BC0" Grid.Row="0" Margin="0,15,0,15" FontSize="25" TextAlignment="Center">Discord Manage Panel</TextBlock>
+        <StackPanel Grid.Row="1">
+            <Button Foreground="#5C6BC0" Style="{StaticResource borderless}" Height="40" VerticalAlignment="Top">Combine conversation using Telegram and Discord channels</Button>
+            <Button Foreground="#5C6BC0" Style="{StaticResource borderless}" Height="40" VerticalAlignment="Top">Combine conversation using Discord channels</Button>
+            <Button Foreground="#5C6BC0" Style="{StaticResource borderless}" Height="40" VerticalAlignment="Top">Add new Discord channel</Button>
+            <Button Foreground="#5C6BC0" Style="{StaticResource borderless}" Height="40" VerticalAlignment="Top">Add new Discord bot client</Button>
+            <Button Foreground="#5C6BC0" Style="{StaticResource borderless}" Height="40" VerticalAlignment="Top">Remove choosen Discord channels</Button>
+        </StackPanel>
     </Grid>
 </UserControl>

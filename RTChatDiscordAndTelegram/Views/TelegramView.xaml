@@ -6,7 +6,27 @@
              xmlns:local="clr-namespace:RTChatDiscordAndTelegram.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock>Telegram</TextBlock>
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ControlStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Foreground="#039BE5" Grid.Row="0" Margin="0,15,0,15" FontSize="25" TextAlignment="Center">Telegram Manage Panel</TextBlock>
+        <StackPanel Grid.Row="1">
+            <Button Foreground="#039BE5" Style="{StaticResource borderless}" Height="40" VerticalAlignment="Top">Combine conversation using Telegram and Discord channels</Button>
+            <Button Foreground="#039BE5" Style="{StaticResource borderless}" Height="40" VerticalAlignment="Top">Combine conversation using Telegram channels</Button>
+            <Button Foreground="#039BE5" Style="{StaticResource borderless}" Height="40" VerticalAlignment="Top">Add new Telegram channel</Button>
+            <Button Foreground="#039BE5" Style="{StaticResource borderless}" Height="40" VerticalAlignment="Top">Add new Telegram bot client</Button>
+            <Button Foreground="#039BE5" Style="{StaticResource borderless}" Height="40" VerticalAlignment="Top">Remove choosen Telegram channels</Button>
+        </StackPanel>
     </Grid>
 </UserControl>
